@@ -18,12 +18,13 @@ import { CssBaseline } from '@mui/material';
 // Components
 import App from '@/App';
 import Login from '@/auth/pages/login';
-import Register from '@/auth/pages/register';
+import Students from '@/manage/pages/students';
+import RequireAuth from '@/components/requireAuth';
+import RequireNotAuth from '@/components/requireNotAuth';
+import Questions from '@/manage/pages/questions';
 
 // Web Vitals
 import reportWebVitals from '@/reportWebVitals';
-import RequireAuth from './components/requireAuth';
-import RequireNotAuth from './components/requireNotAuth';
 
 const router = createBrowserRouter([
   {
@@ -35,9 +36,13 @@ const router = createBrowserRouter([
     element: <RequireNotAuth><Login /></RequireNotAuth> ,
   },
   {
-    path: "/auth/register",
-    element: <Register />,
+    path: "/manage/students",
+    element: <RequireAuth><Students /></RequireAuth>,
   },
+  {
+    path: "/manage/questions",
+    element: <RequireAuth><Questions /></RequireAuth>,
+  }
 ])
 
 const root = ReactDOM.createRoot(

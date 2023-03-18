@@ -11,6 +11,7 @@ import { selectUser } from '@redux/slices/user.slice';
 import { IconButton } from '@mui/material';
 import { logoutUser } from '@/controllers/auth.controller';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
 	const user = useSelector(selectUser)
@@ -26,12 +27,12 @@ export default function NavBar() {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" className="bg-[#946300]">
 				<Toolbar>
-					<div className="flex gap-3 flex-grow items-center">
+					<Link to='/' className="flex gap-3 flex-grow items-center">
 						<QuizIcon />
 						<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 							Examme
 						</Typography>
-					</div>
+					</Link>
 					<p className="text-white text-sm mr-10">Hola, <span className='text-lg font-semibold'>{user.userInfo.name}</span></p>
 					<Button 
 						onClick={handleLogout}

@@ -4,35 +4,36 @@ export const userSlice = createSlice({
 	name: "user",
 	initialState: {
 		userInfo: {
+			id: null,
 			name: null,
-			email: null,
-			age: 42,
+			role: null,
 		},
 		isLoading: false,
 		isError: null
 		// ...
 	},
 	reducers: {
+		setUserId (state, action) {
+			state.userInfo.id = action.payload;
+		},
 		setUserName (state, action) {
 			state.userInfo.name = action.payload;
 		},
-		setUserAge (state, action) {
-			state.userInfo.age = action.payload;
-		},
-		setUserEmail (state, action) {
-			state.userInfo.email = action.payload;
+		setUserRole (state, action) {
+			state.userInfo.role = action.payload;
 		},
 		setUser (state, action) {
-			state.userInfo.name = action.payload.email.split("@")[0];
-			state.userInfo.email = action.payload.email;
+			state.userInfo.id = action.payload.id;
+			state.userInfo.name = action.payload.name;
+			state.userInfo.role = action.payload.role;
 		},
 		updateUser (state, action) {
-			state = { ...state, ...action.payload };
+			state.userInfo = { ...state.userInfo, ...action.payload };
 		},
 		clearUser (state) {
+			state.userInfo.id = null;
 			state.userInfo.name = null;
-			state.userInfo.email = null;
-			state.userInfo.age = 0;
+			state.userInfo.role = null;
 		},
 		setUserLoading (state, action) {
 			state.isLoading = action.payload;
@@ -45,12 +46,12 @@ export const userSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { 
-	setUser, setUserAge, setUserName, setUserEmail, updateUser, clearUser,
+	setUser, setUserId, setUserName, setUserRole, updateUser, clearUser,
 	setUserLoading, setUserError
 } = userSlice.actions;
 export const selectUser = (state: { user: {
-	userInfo: { name: any; email: any; age: number; };
+	userInfo: { id: number; name: string; role: string; };
 	isLoading: boolean;
-	isError: null;
+	isError: string;
 } }) => state.user;
 export default userSlice.reducer;

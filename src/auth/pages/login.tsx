@@ -1,18 +1,22 @@
 import { redirect, useNavigate } from 'react-router-dom';
-import { TextField, Button } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '@/controllers/auth.controller';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '@controllers/auth.controller';
+import { selectUser } from '@redux/slices/user.slice';
 
 const Login = () => {
+	const user = useSelector(selectUser)
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const onSubmit = (data: any) => {
+	const onSubmit = async (data: any) => {
 		console.log(data);
-		dispatch(loginUser(data));
-		// alert(`Usuario logueado correctamente\n${data.email}`)
+		await dispatch(loginUser(data));
+		if (user.isError) return;
+		console.log('authed')
 		navigate('/');
 		return redirect('/');
 	};
@@ -56,6 +60,9 @@ const Login = () => {
 							className='bg-[#4F6441] hover:bg-[#647958] active:bg-[#4F6441] font-semibold text-white py-2 rounded-xl'>
 								inicia Sesión
 							</Button>
+							{ 
+								user.isError && <p className='text-red-500'>{user.isError}</p>
+							}
 						</form>
 					</div>
 					{/*Login image */}

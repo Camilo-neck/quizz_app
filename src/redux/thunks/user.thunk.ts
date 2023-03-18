@@ -2,13 +2,13 @@ import { setUser, clearUser, setUserLoading } from "@redux/slices/user.slice";
 
 export const fetchUser = (): any => async (dispatch: (arg0: { payload: any; type: string; }) => void)=> {
 	dispatch(setUserLoading(true));
-	const user = localStorage.getItem('user');
-	console.log(user)
+	const user = JSON.parse(localStorage.getItem('user') || '' ) ;
 	if (user) {
-		console.log('in')
-		dispatch(setUser(JSON.parse(user)));
+		dispatch(setUser(user));
+		return user
 	}
 	dispatch(setUserLoading(false));
+	return null
 }
 
 export const removeUser = (): any => async (dispatch: (arg0: { payload: any; type: string; }) => void)=> {
