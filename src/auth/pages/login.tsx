@@ -53,7 +53,7 @@ const Login = () => {
 							{/* <input type='password' placeholder='Password' className='p-2 rounded-xl border' /> */}
 							<Button 
 							type='submit'
-							className='bg-[#4F6441] hover:bg-[#dd7234] active:bg-[#D96B2B] font-semibold text-white py-2 rounded-xl'>
+							className='bg-[#4F6441] hover:bg-[#647958] active:bg-[#4F6441] font-semibold text-white py-2 rounded-xl'>
 								inicia Sesión
 							</Button>
 						</form>
