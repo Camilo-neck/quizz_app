@@ -17,11 +17,11 @@ import { CssBaseline } from '@mui/material';
 
 // Components
 import App from '@/App';
-import Login from '@/auth/pages/login';
-import Students from '@/manage/pages/students';
+import Login from '@/pages/auth/login';
+import Students from '@/pages/manage/students';
 import RequireAuth from '@/components/requireAuth';
 import RequireNotAuth from '@/components/requireNotAuth';
-import Questions from '@/manage/pages/questions';
+import Questions from '@/pages/manage/questions';
 
 // Web Vitals
 import reportWebVitals from '@/reportWebVitals';

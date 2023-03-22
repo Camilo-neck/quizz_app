@@ -71,7 +71,7 @@ function App() {
             </Button>
           </>
         }
-        {user.userInfo.role === 'profesor' &&
+        {user.userInfo.role === 'Administrador' &&
           <>
             <p className='text-[#55442A] '>Crea y gestiona tus exámenes online con facilidad y seguridad. ¡Empieza ahora!</p>
             <div className='flex flex-row gap-10 justify-center flex-wrap w-[90vw]'>

@@ -17,6 +17,7 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "craco": "^0.0.3",
+    "jwt-decode": "^3.1.2",
     "module-alias": "^2.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "tailwindcss": "^3.2.7"

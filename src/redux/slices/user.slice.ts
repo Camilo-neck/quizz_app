@@ -24,8 +24,8 @@ export const userSlice = createSlice({
 		},
 		setUser (state, action) {
 			state.userInfo.id = action.payload.id;
-			state.userInfo.name = action.payload.name;
-			state.userInfo.role = action.payload.role;
+			state.userInfo.name = action.payload.firstName;
+			state.userInfo.role = action.payload.rol;
 		},
 		updateUser (state, action) {
 			state.userInfo = { ...state.userInfo, ...action.payload };
