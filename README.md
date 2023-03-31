@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# Reto Bootcamp Dinara
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación de exámentes donde los usuarios pueden presentar los mismos, y el administrador puede gestionar a los estudiantes y preguntas.
 
-## Available Scripts
+## Snapshots de la aplicación
+### Login de la aplicación
+En esta vista podemos encontrar un común formulario de inicio de sesión.
+![Login](/resources/images/login.png)
+### Dashboard de administrador
+En esta vista podemos observar el dashboard del administrador, donde podemos encontrar las opciones de gestionar estudiantes, preguntas y exámenes.
+![Dashboard](/resources/images/admin_dashboard.png)
+### Gestión de estudiantes
+En esta vista podemos observar una tabla con los estudiantes registrados en la aplicación, y un formulario para agregar nuevos estudiantes. Además de poder editar. Estas acciones presentan alertas de confirmación.
+![Students](/resources/images/students_table.png)
+![Students](/resources/images/create_update_form.png)
+![Students](/resources/images/confirmation_alerts.png)
 
-In the project directory, you can run:
+### Gestión de preguntas
+En esta vista podemos observar una tabla con las preguntas registradas en la aplicación, y un formulario para agregar nuevas preguntas. Además de poder editar y eliminar. Estas acciones al igual que en la vista anterior, presentan alertas de confirmación.
+![Questions](/resources/images/questions_table.png)
+![Questions](/resources/images/question_details.png)
+![Questions](/resources/images/create_update_question.png)
 
-### `npm start`
+### Dashboard de estudiante
+En esta vista podemos observar el dashboard del estudiante, donde se nos da la opción de presentar un examen.
+![Student](/resources/images/student_dashboard.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Presentación de examen
+Podremos ver un formulario con las preguntas del exámen, además de un mensaje de error si no se seleccionan todas las respuestas, y uno de confirmación en caso de un envío exitoso.
+![Exam](/resources/images/exam_form.png)
+![Exam](/resources/images/exam_error_alert.png)
+![Exam](/resources/images/exam_success_alert.png)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tecnologías
 
-### `npm test`
+ - ReactJS <img align="center" alt="Rafa-Csharp" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg">
+ - TypeScript <img align="center" alt="Rafa-Csharp" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg">
+ - Tailwind CSS <img align="center" alt="Rafa-Csharp" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-plain.svg">
+ - Material Icons <img align="center" alt="Rafa-Csharp" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg">
+ - React Redux <img align="center" alt="Rafa-Csharp" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg">
+ - React Hook Form 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ¿Cómo ejecutar el proyecto?
 
-### `npm run build`
+ - Clonar el repositorio
+```bash
+git clone https://github.com/Camilo-neck/quizz_app.git
+cd quizz_app # Ingresar al proyecto
+```
+ - Instalar dependencias
+```bash
+npm i # npm install
+```
+ - Ejecutar el servidor y disfrutar 😄
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> **Nota:** Tener en cuenta que el backend del proyecto fue modificado debido a que el original no funcionaba correctamente, ya que cierta información necesaria no la enviaba al cliente, por lo que se tuvo que modificar el código. Razón por la cual no se puede probar el proyecto con el backend original. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Autor 👋**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Camilo Andres Cuello Romero
 
-### `npm run eject`
+Ingeniería de Sistemas y Computación
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Universidad Nacional de Colombia Sede Bogotá
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+2022
