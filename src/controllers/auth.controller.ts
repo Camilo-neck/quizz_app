@@ -34,6 +34,8 @@ export const loginUser = (data: {email: string; password:string;}): any => async
 }
 
 export const logoutUser = (): any => async (dispatch: (arg0: { payload: any; type: string; }) => void)=> {
-	localStorage.removeItem('user');
+	// Remove auth token from cookie
+	window.document.cookie = `token=; max-age=0; path=/`;
+	// Remove user from redux store
 	dispatch(removeUser());
 }

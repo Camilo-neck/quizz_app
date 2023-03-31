@@ -5,13 +5,13 @@ import Button from '@mui/material/Button';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '@redux/slices/user.slice';
-import { logoutUser } from './controllers/auth.controller';
+import { logoutUser } from '../controllers/auth.controller';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import { fetchUser } from './redux/thunks/user.thunk';
+import { fetchUser } from '../redux/thunks/user.thunk';
 import { CircularProgress } from '@mui/material';
 import NavBar from '@components/navbar';
-import Layout from './components/layout';
+import Layout from '../components/layout';
 
 const sections = [
   {
@@ -52,23 +52,23 @@ const SectionCard = ({ title, description, image, href }: { title: string; descr
 
 function App() {
   const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <Layout>
       <div className="flex flex-col px-10 items-center justify-center w-full min-h-full gap-5 mt-5">
         <p className='text-4xl font-bold text-[#3D2E16] text-center'>Bienvenido a tu aplicación de exámenes</p>
         {
-          user.userInfo.role === 'estudiante' &&
+          user.userInfo.role !== 'Administrador' &&
           <>
             <p className='text-[#55442A] hidden'>¿Estás listo para poner a prueba tus conocimientos? ¡Empieza ahora!</p>
             <img className='h-96 lg:h-[30rem] xl:h-[35rem] w-[65%] rounded-lg' src='/goto-exam.jpg' alt='goto-exam' />
-            <Button className='w-[65%] mt-3 rounded-full bg-[#8D437F] hover:bg-[#8d5281] active:bg-[#8D437F] focus:outline-none focus:ring-2 focus:ring-[#8D437F] focus:ring-opacity-50'
-              fullWidth
-              variant="contained">
-              Presentar exámen.
-            </Button>
+            <Link to={'/exam/form'} className='w-[65%]'>
+              <Button className='mt-3 rounded-full bg-[#8D437F] hover:bg-[#8d5281] active:bg-[#8D437F] focus:outline-none focus:ring-2 focus:ring-[#8D437F] focus:ring-opacity-50'
+                fullWidth
+                variant="contained">
+                Presentar exámen.
+              </Button>
+            </Link>
           </>
         }
         {user.userInfo.role === 'Administrador' &&

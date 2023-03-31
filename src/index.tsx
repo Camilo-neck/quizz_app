@@ -16,12 +16,13 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
 // Components
-import App from '@/App';
+import App from '@/pages/App';
 import Login from '@/pages/auth/login';
 import Students from '@/pages/manage/students';
 import RequireAuth from '@/components/requireAuth';
 import RequireNotAuth from '@/components/requireNotAuth';
 import Questions from '@/pages/manage/questions';
+import Form from '@/pages/exam/form';
 
 // Web Vitals
 import reportWebVitals from '@/reportWebVitals';
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/manage/questions",
     element: <RequireAuth><Questions /></RequireAuth>,
+  },
+  {
+    path: "exam/form",
+    element: <RequireAuth><Form /></RequireAuth>,
   }
 ])
 

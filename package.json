@@ -19,6 +19,7 @@
     "craco": "^0.0.3",
     "jwt-decode": "^3.1.2",
     "module-alias": "^2.2.2",
+    "pocketbase": "^0.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",

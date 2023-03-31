@@ -18,16 +18,15 @@ const initialState: UserI = {
 	surname: '',
 	secondSurName: '',
 	email: '',
-	TypesDocument: 0,
+	typeDocument: 0,
 	documentNumber: '',
 	password: '',
-	rol: 0,
+	rol: 2,
 	phone: '',
-	state: true,
 }
 
-export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen: boolean, onClose: () => void, onSubmit: (data: UserI) => void }) {
-	const { register, watch, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: initialState});
+export default function AddUpdateStudentModal({ isOpen, isUpdate, userData, onClose, onSubmit }: { isOpen: boolean, isUpdate: boolean, userData?: UserI, onClose: () => void, onSubmit: (data: UserI) => void }) {
+	const { register, watch, reset, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur', defaultValues: isUpdate ? userData : initialState});
 	const formRef = useRef<HTMLFormElement>(null);
 	const [open, setOpen] = useState(false);
 	const [ rolesOptions, setRolesOptions ] = useState<{id:number, name:string}[]>([{id:0, name:''}]);
@@ -43,12 +42,15 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 		f();
 	}, [])
 
+	useEffect(() => {
+		console.log(isUpdate, userData)
+	}, [userData])
+
 	const handleSubmitForm = (data: UserI) => {
 		console.log('submit')
 		console.log(data)
 		onSubmit(data);
-		
-		onClose();
+		handleClose();
 	}
 
 	const handleClickOpen = () => {
@@ -56,17 +58,18 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 	};
 
 	const handleClose = () => {
-		setOpen(false);
+		reset({...initialState});
+		onClose();
 	};
 
 	console.log(watch('rol'));
 
 	return (
 		<Dialog open={isOpen} onClose={handleClose}>
-			<DialogTitle>Crear Usuario</DialogTitle>
+			<DialogTitle>{ !isUpdate ? 'Crear Usuario' : 'Actualizar usuario'}</DialogTitle>
 			<DialogContent>
 				<DialogContentText>
-					Para crear un nuevo usuario, debe llenar completamente el siguiente formulario.
+					Para {!isUpdate ? 'crear un nuevo': 'actualizar un'} usuario, debe llenar completamente el siguiente formulario.
 				</DialogContentText>
 				<form ref={formRef} onSubmit={handleSubmit(handleSubmitForm)}>
 					<TextField
@@ -76,7 +79,9 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 						label="Primer Nombre"
 						type="text"
 						fullWidth
-						{...register('firstName', { required: true })}
+						{...register('firstName', { required: "Debe ingresar el primer nombre" })}
+						error={!!errors.firstName}
+						helperText={`${errors.firstName ? errors.firstName?.message : ''}`}
 					/>
 					<TextField
 						margin="dense"
@@ -84,7 +89,9 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 						label="Segundo Nombre"
 						type="text"
 						fullWidth
-						{...register('secondName', { required: true })}
+						{...register('secondName', { required: "Debe ingresar el segundo nombre" })}
+						error={!!errors.secondName}
+						helperText={`${ errors.secondName ? errors.secondName?.message : ''}`}
 					/>
 					<TextField
 						margin="dense"
@@ -92,7 +99,9 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 						label="Primer Apellido"
 						type="text"
 						fullWidth
-						{...register('surname', { required: true })}
+						{...register('surname', { required: "Debe ingresar el primer apellido" })}
+						error={!!errors.surname}
+						helperText={`${ errors.surname ? errors.surname?.message : ''}`}
 					/>
 					<TextField
 						margin="dense"
@@ -100,7 +109,9 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 						label="Segundo Apellido"
 						type="text"
 						fullWidth
-						{...register('secondSurName', { required: true })}
+						{...register('secondSurName', { required: "Debe ingresar el segundo apellido" })}
+						error={!!errors.secondSurName}
+						helperText={`${ errors.surname ? errors.secondSurName?.message : ''}`}
 					/>
 					<TextField
 						margin="dense"
@@ -108,7 +119,15 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 						label="Correo Electrónico"
 						type="email"
 						fullWidth
-						{...register('email', { required: true })}
+						{...register('email', { 
+							required: "Debe ingresar el correo electrónico", 
+							pattern: { 
+								value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 
+								message: "Debe ingresar un correo electrónico válido" 
+							} 
+						})}
+						error={!!errors.email}
+						helperText={`${ errors.email ? errors.email?.message : ''}`}
 					/>
 					<div className='flex flex-row items-center gap-2 p-1'>
 						<FormControl fullWidth>
@@ -120,12 +139,14 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 								label="Tipo de Documento"
 								type="text"
 								fullWidth
-								{...register('TypesDocument', { required: true })}
+								{...register('typeDocument', { required: "Debe ingresar el tipo de documento" })}
+								error={!!errors.typeDocument}
 							>
 								{documentTypes.map((dType) => (
 									<MenuItem key={dType.id} value={dType.id}>{dType.name}</MenuItem>
 								))}
 							</Select>
+							<p className="text-xs text-red-600 ml-2">{ errors.typeDocument ? errors.typeDocument?.message : ''}</p>
 						</FormControl>
 						<TextField
 							margin="dense"
@@ -133,47 +154,57 @@ export default function AddStudentModal({ isOpen, onClose, onSubmit }: { isOpen:
 							label="Número de Documento"
 							type="text"
 							fullWidth
-							{...register('documentNumber', { required: true })}
+							{...register('documentNumber', { 
+								required: "Debe ingresar el número de documento", 
+								minLength: { 
+									value: 6, 
+									message: "El número de documento debe tener al menos 6 caracteres" 
+								} 
+							})}
+							error={!!errors.documentNumber}
+							helperText={`${ errors.documentNumber ? errors.documentNumber?.message : ''}`}
 						/>
 					</div>
+					{ !isUpdate &&
 					<TextField
 						margin="dense"
 						id="password"
 						label="Contraseña"
 						type="password"
 						fullWidth
-						{...register('password', { required: true })}
+						{...register('password', { 
+							required: "Debe ingresar la contraseña", 
+							minLength: { 
+								value: 6, 
+								message: "La contraseña debe tener al menos 6 caracteres" 
+							} 
+						})}
+						error={!!errors.password}
+						helperText={`${ errors.password ? errors.password?.message : ''}`}
 					/>
-					<FormControl fullWidth>
-						<InputLabel id="rol-label">Rol</InputLabel>
-						<Select
-							labelId='rol-label'
-							margin="dense"
-							id="rol"
-							label="Rol"
-							type="text"
-							fullWidth
-							{...register('rol', { required: true })}
-						>
-							{rolesOptions.map((rol) => (
-								<MenuItem key={rol.id} value={rol.id}>{rol.name}</MenuItem>
-							))}
-						</Select>
-					</FormControl>
+					}
 					<TextField
 						margin="dense"
 						id="phone"
 						label="Teléfono"
 						type="text"
 						fullWidth
-						{...register('phone', { required: true })}
+						{...register('phone', { 
+							required: "Debe ingresar el teléfono",
+							minLength: {
+								value: 7,
+								message: "El teléfono debe tener al menos 7 caracteres"
+							}
+						})}
+						error={!!errors.phone}
+						helperText={`${ errors.phone ? errors.phone?.message : ''}`}
 					/>
 
 				</form>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={onClose}>Cancel</Button>
-				<Button onClick={() => formRef.current.requestSubmit()}>Crear</Button>
+				<Button onClick={handleClose}>Cancelar</Button>
+				<Button onClick={() => formRef.current.requestSubmit()}>{isUpdate ? 'Actualizar' : 'Crear'}</Button>
 			</DialogActions>
 		</Dialog>
 	);
